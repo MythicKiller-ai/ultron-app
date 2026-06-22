@@ -1,398 +1,571 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultron™ - Advanced Discord Bot</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultron™ – Advanced Discord Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #07070d;
+            color: #eaeef2;
+            line-height: 1.6;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family:'Roboto',sans-serif;
-    background:#0a0a0f;
-    color:#e5e5e5;
-}
+        a {
+            color: #00c8ff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #66dcff;
+        }
 
-header{
-    text-align:center;
-    padding:40px 20px;
-    background:linear-gradient(90deg,#0f0f1f,#1a1a2e);
-    box-shadow:0 4px 10px rgba(0,0,0,.4);
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-header h1{
-    margin:0;
-    font-size:3rem;
-    color:#00bfff;
-}
+        /* ---------- HEADER / NAV ---------- */
+        .navbar {
+            background: #0e0e1a;
+            border-bottom: 1px solid #1e1e32;
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(6px);
+        }
 
-header p{
-    color:#b5b5b5;
-    font-size:1.1rem;
-}
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:20px;
-}
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.card{
-    background:#171727;
-    border-radius:12px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 4px 12px rgba(0,0,0,.3);
-}
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid #00bfff;
+            object-fit: cover;
+        }
 
-h2{
-    color:#00d4ff;
-    border-left:4px solid #00bfff;
-    padding-left:12px;
-    margin-top:40px;
-}
+        .brand h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00bfff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-h3{
-    color:#00d4ff;
-}
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+            list-style: none;
+            font-weight: 500;
+        }
 
-ul.commands{
-    list-style:none;
-    padding:0;
-}
+        .nav-links a {
+            color: #b0b8c5;
+            font-size: 1rem;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #ffffff;
+            border-bottom-color: #00bfff;
+        }
 
-ul.commands li{
-    background:#111123;
-    padding:10px 15px;
-    margin:6px 0;
-    border-radius:8px;
-    transition:.2s;
-}
+        /* ---------- HERO ---------- */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: radial-gradient(circle at 20% 30%, #10102a, #07070d 70%);
+        }
 
-ul.commands li:hover{
-    background:#00bfff;
-    color:#000;
-}
+        .hero .brand-large {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
 
-ul.commands span{
-    font-weight:bold;
-}
+        .hero .brand-large img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #00bfff;
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.25);
+        }
 
-.premium-card{
-    background:linear-gradient(135deg,#2b2100,#4d3900);
-    border:1px solid #ffd700;
-    box-shadow:0 0 15px rgba(255,215,0,.25);
-}
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00ccff, #0066ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-.premium-card h3{
-    color:#ffd700;
-}
+        .hero p {
+            max-width: 640px;
+            margin: 16px auto 0;
+            color: #aab4c2;
+            font-size: 1.15rem;
+        }
 
-footer{
-    text-align:center;
-    padding:20px;
-    margin-top:30px;
-    background:#11111a;
-    border-top:1px solid #222;
-}
+        /* ---------- SECTIONS ---------- */
+        section {
+            padding: 48px 0 24px;
+            border-bottom: 1px solid #18182a;
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
 
-@media(max-width:768px){
-    header h1{
-        font-size:2rem;
-    }
-}
-</style>
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title span {
+            background: #00bfff;
+            width: 6px;
+            height: 32px;
+            border-radius: 4px;
+            display: inline-block;
+        }
 
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: #111125;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #1d1d3a;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            border-color: #2a4a7a;
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #d0e4ff;
+        }
+
+        .card p,
+        .card li {
+            color: #bcc6d6;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .card ul li {
+            padding: 6px 0 6px 24px;
+            position: relative;
+            border-bottom: 1px solid #1a1a30;
+        }
+        .card ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #00bfff;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #f5b042, #d48c2c);
+            color: #0f0f1a;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            margin-left: 8px;
+            text-transform: uppercase;
+        }
+
+        /* ---------- PREMIUM CARD ---------- */
+        .premium-highlight {
+            background: linear-gradient(145deg, #1a1a30, #0f0f22);
+            border: 1px solid #f5b042;
+            box-shadow: 0 0 24px rgba(245, 176, 66, 0.08);
+        }
+
+        .btn {
+            display: inline-block;
+            background: #00bfff;
+            color: #0a0a12;
+            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .btn:hover {
+            background: #33ccff;
+            color: #0a0a12;
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #00bfff;
+            border: 2px solid #00bfff;
+        }
+        .btn-outline:hover {
+            background: #00bfff;
+            color: #0a0a12;
+        }
+
+        /* ---------- DEVELOPER CARD ---------- */
+        .dev-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .dev-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00bfff;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .dev-info {
+            flex: 1;
+        }
+        .dev-info p {
+            margin: 6px 0;
+        }
+        .dev-info .label {
+            color: #8899b0;
+            font-weight: 500;
+            min-width: 100px;
+            display: inline-block;
+        }
+
+        .link-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 28px;
+            margin-top: 16px;
+        }
+
+        /* ---------- FOOTER ---------- */
+        .footer {
+            background: #0a0a16;
+            border-top: 1px solid #1a1a30;
+            padding: 32px 0 24px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .footer .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px 32px;
+            margin-bottom: 16px;
+        }
+        .footer .links a {
+            font-size: 0.95rem;
+            color: #8a9bb0;
+        }
+        .footer .links a:hover {
+            color: #ffffff;
+        }
+
+        .footer .copy {
+            color: #5a6a80;
+            font-size: 0.85rem;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 700px) {
+            .navbar .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .dev-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .dev-avatar {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand h1 {
+                font-size: 1.3rem;
+            }
+            .hero .brand-large img {
+                width: 60px;
+                height: 60px;
+            }
+            .btn {
+                padding: 10px 24px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>Ultron™</h1>
-<p>Moderation • Economy • Security • Minecraft • Developer Tools</p>
-</header>
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+    <div class="container">
+        <div class="brand">
+            <img src="https://cdn.discordapp.com/avatars/1450801405572153446/da7bf9a99800e445d4f15fe1743afe4c.png?size=1024" alt="Ultron bot icon" />
+            <h1>Ultron™</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">Ultron™</a></li>
+            <li><a href="#commands">Commands</a></li>
+            <li><a href="#premium">Premium</a></li>
+            <li><a href="#developer">Developer</a></li>
+        </ul>
+    </div>
+</nav>
 
-<div class="container">
-
-<section>
-<h2>About Ultron™</h2>
-
-<div class="card">
-<p>
-Ultron™ is a powerful multipurpose Discord bot built to help communities manage, secure, and grow their servers. With moderation tools, economy features, Minecraft utilities, developer tools, security commands, detailed statistics, fun interactions, and premium enhancements, Ultron delivers everything you need in a single bot.
-</p>
-
-<p>
-Supports both Prefix Commands and Slash Commands for a modern Discord experience.
-</p>
-
-<p>
-Default Prefix: <strong>?</strong><br>
-Change Prefix: <strong>?prefix set &lt;new_prefix&gt;</strong>
-</p>
-</div>
+<!-- ========== HERO ========== -->
+<section class="hero" id="about">
+    <div class="container">
+        <div class="brand-large">
+            <img src="https://cdn.discordapp.com/avatars/1450801405572153446/da7bf9a99800e445d4f15fe1743afe4c.png?size=1024" alt="Ultron bot icon" />
+            <h1>Ultron™</h1>
+        </div>
+        <p>
+            Advanced multipurpose Discord bot — Moderation · Economy · Security ·
+            Minecraft tools · Developer utilities · Fun interactions &amp; more.
+            Built for communities that demand performance and reliability.
+        </p>
+        <p style="margin-top:12px; font-size:0.95rem; color:#8899b0;">
+            Prefix: <strong style="color:#d0e4ff;">?</strong> &nbsp;·&nbsp;
+            Slash commands: <strong style="color:#d0e4ff;">/</strong>
+        </p>
+    </div>
 </section>
 
-<section>
-
-<h2>Fun Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?8ball &lt;question&gt;</span> → Ask the magic 8-ball</li>
-<li><span>?joke</span> → Random joke</li>
-<li><span>?avatar @user</span> → View user avatar</li>
-<li><span>?afk [reason]</span> → Set AFK status</li>
-<li><span>?cry</span> → Cry</li>
-<li><span>?dance</span> → Dance</li>
-<li><span>?grin</span> → Grin</li>
-</ul>
-</div>
-
-<h2>Action Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?cuddle @user</span></li>
-<li><span>?kiss @user</span></li>
-<li><span>?hug @user</span></li>
-<li><span>?kill @user</span></li>
-<li><span>?punch @user</span></li>
-<li><span>?slap @user</span></li>
-<li><span>?poke @user</span></li>
-<li><span>?lick @user</span></li>
-<li><span>?tickle @user</span></li>
-<li><span>?highfive @user</span></li>
-<li><span>?handholding @user</span></li>
-<li><span>?bite @user</span></li>
-<li><span>?greet @user</span></li>
-<li><span>?bully @user</span></li>
-</ul>
-</div>
-
-<h2>Economy Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?bal</span> → Check balance</li>
-<li><span>?daily</span> → Daily reward</li>
-<li><span>?cf &lt;amount&gt; heads/tails</span></li>
-<li><span>?blackjack &lt;amount&gt;</span></li>
-<li><span>?slots &lt;amount&gt;</span></li>
-<li><span>?give &lt;amount&gt; @user</span></li>
-<li><span>?tstart &lt;time&gt; &lt;message&gt;</span></li>
-</ul>
-</div>
-
-<h2>Moderation Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?kick</span></li>
-<li><span>?ban</span></li>
-<li><span>?unban</span></li>
-<li><span>?timeout</span></li>
-<li><span>?removetimeout</span></li>
-<li><span>?mute</span></li>
-<li><span>?unmute</span></li>
-<li><span>?purge</span></li>
-<li><span>?warn</span></li>
-<li><span>?warn list</span></li>
-<li><span>?nuke</span></li>
-<li><span>?role @role @user</span></li>
-<li><span>?slowmode &lt;time&gt;</span></li>
-<li><span>?nick @user &lt;nickname&gt;</span></li>
-</ul>
-</div>
-<h2>Statistics Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?accountage @user</span></li>
-<li><span>?m @user</span></li>
-<li><span>?i @user</span></li>
-<li><span>?mc</span></li>
-<li><span>?si</span></li>
-<li><span>?userinfo</span></li>
-<li><span>?botcount</span></li>
-<li><span>?sbanner</span></li>
-<li><span>?servermood</span></li>
-<li><span>?botinfo</span></li>
-<li><span>?lb dailymessages</span></li>
-<li><span>?lb m</span></li>
-</ul>
-</div>
-
-<h2>Bot Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?ping</span></li>
-<li><span>?botinfo</span></li>
-<li><span>?uptime</span></li>
-<li><span>?prefix set &lt;new&gt;</span></li>
-</ul>
-</div>
-
-<h2>Premium Features</h2>
-
-<div class="card premium-card">
-<h3>👑 Ultron Premium</h3>
-
-<ul class="commands">
-<li><span>?serverspeed</span> → Server latency information</li>
-<li><span>?massunban</span> → Unban all users</li>
-<li><span>?clearinvitelinks</span> → Remove all invite links</li>
-<li><span>?gif</span> → Convert image to GIF</li>
-<li><span>/unban_all</span> → Slash command version</li>
-<li><span>Sticky Messages</span> → 15 per server (Free: 3)</li>
-<li><span>Auto Reactions</span> → 10 channels per server (Free: 1)</li>
-<li><span>Golden Premium Theme</span></li>
-<li><span>Priority Support</span></li>
-</ul>
-</div>
-
-<h2>Security Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?passwordgen [chars] [nospecial]</span></li>
-<li><span>?viruscheck &lt;attachment&gt;</span></li>
-<li><span>?textencrypt &lt;text&gt;</span></li>
-<li><span>?textdecrypt &lt;encrypted&gt; &lt;key&gt;</span></li>
-<li><span>?encrypt</span> (attach file)</li>
-<li><span>?decryptfile</span> (attach file) &lt;key&gt;</li>
-</ul>
-</div>
-
-<h2>Minecraft Commands</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?minecraft &lt;username&gt;</span></li>
-<li><span>?mcstatus &lt;server_ip&gt;</span></li>
-</ul>
-</div>
-
-<h2>Developer Tools</h2>
-
-<div class="card">
-<ul class="commands">
-<li><span>?dns &lt;domain&gt;</span></li>
-<li><span>?passwordstrength &lt;password&gt;</span></li>
-<li><span>?qr &lt;text/url&gt;</span></li>
-<li><span>?status &lt;url&gt;</span></li>
-<li><span>?netping &lt;host&gt;</span></li>
-<li><span>?iplookup &lt;ip/domain&gt;</span></li>
-<li><span>?whois &lt;domain&gt;</span></li>
-</ul>
-</div>
-
-<h2>Slash Commands</h2>
-
-<div class="card">
-<p>
-Ultron supports 80+ slash commands covering moderation, utility, economy, fun, Minecraft, security, giveaways, premium features, automation, and server management.
-</p>
-
-<ul class="commands">
-<li><span>/help</span></li>
-<li><span>/botinfo</span></li>
-<li><span>/ping</span></li>
-<li><span>/invites</span></li>
-<li><span>/avatar</span></li>
-<li><span>/botcount</span></li>
-<li><span>/userinfo</span></li>
-<li><span>/sbanner</span></li>
-<li><span>/servermood</span></li>
-<li><span>/serverinfo</span></li>
-<li><span>/membercount</span></li>
-<li><span>/warn</span></li>
-<li><span>/warnlist</span></li>
-<li><span>/afk</span></li>
-<li><span>/balance</span></li>
-<li><span>/daily</span></li>
-<li><span>/cf</span></li>
-<li><span>/blackjack</span></li>
-<li><span>/slots</span></li>
-<li><span>/give</span></li>
-<li><span>/timer</span></li>
-<li><span>/joke</span></li>
-<li><span>/cry</span></li>
-<li><span>/dance</span></li>
-<li><span>/grin</span></li>
-<li><span>/bite</span></li>
-<li><span>/greet</span></li>
-<li><span>/highfive</span></li>
-<li><span>/tickle</span></li>
-<li><span>/poke</span></li>
-<li><span>/handholding</span></li>
-<li><span>/bully</span></li>
-<li><span>/lick</span></li>
-<li><span>/kiss</span></li>
-<li><span>/hug</span></li>
-<li><span>/punch</span></li>
-<li><span>/cuddle</span></li>
-<li><span>/slap</span></li>
-<li><span>/kill</span></li>
-<li><span>/kick</span></li>
-<li><span>/ban</span></li>
-<li><span>/unban</span></li>
-<li><span>/timeout</span></li>
-<li><span>/removetimeout</span></li>
-<li><span>/mute</span></li>
-<li><span>/unmute</span></li>
-<li><span>/purge</span></li>
-<li><span>/lock</span></li>
-<li><span>/unlock</span></li>
-<li><span>/lockserver</span></li>
-<li><span>/unlockserver</span></li>
-<li><span>/role</span></li>
-<li><span>/slowmode</span></li>
-<li><span>/nick</span></li>
-<li><span>/nuke</span></li>
-<li><span>/gstart</span></li>
-<li><span>/iplookup</span></li>
-<li><span>/status</span></li>
-<li><span>/userid</span></li>
-<li><span>/minecraft</span></li>
-<li><span>/textencrypt</span></li>
-<li><span>/textdecrypt</span></li>
-<li><span>/encrypt</span></li>
-<li><span>/decryptfile</span></li>
-<li><span>/unban_all</span></li>
-<li><span>/gif</span></li>
-<li><span>/premium</span></li>
-<li><span>/stick_message</span></li>
-<li><span>/unstick_message</span></li>
-<li><span>/autoreaction</span></li>
-<li><span>/autoreaction_clear</span></li>
-<li><span>/autodelete</span></li>
-<li><span>/banned_word_add</span></li>
-<li><span>/banned_word_remove</span></li>
-<li><span>/banned_word_list</span></li>
-<li><span>/banned_words_clear</span></li>
-<li><span>/banned_words_punishment</span></li>
-<li><span>/banned_word_whitelist_add</span></li>
-<li><span>/banned_word_whitelist_remove</span></li>
-<li><span>/banned_words_logs_set</span></li>
-<li><span>/snipe</span></li>
-<li><span>/uptime</span></li>
-</ul>
-</div>
-
+<!-- ========== ABOUT (Ultron™) ========== -->
+<section id="about">
+    <div class="container">
+        <div class="section-title">
+            <span></span> About Ultron™
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>⚡ Core Features</h3>
+                <ul>
+                    <li>Full moderation toolkit (kick, ban, timeout, purge, warn, nuke …)</li>
+                    <li>Economy system with daily rewards, blackjack, slots, coinflip &amp; give</li>
+                    <li>Security: password generator, file/text encryption, VirusTotal scan</li>
+                    <li>Minecraft player info &amp; server status</li>
+                    <li>Developer tools: DNS, WHOIS, IP lookup, netping, QR generator</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🤖 Bot Stats</h3>
+                <ul>
+                    <li><strong>80+</strong> slash commands</li>
+                    <li><strong>50+</strong> prefix commands</li>
+                    <li>Fully customisable prefix per server</li>
+                    <li>Premium tier with extended limits &amp; exclusive features</li>
+                    <li>Active development &amp; support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
 
-</div>
+<!-- ========== COMMANDS ========== -->
+<section id="commands">
+    <div class="container">
+        <div class="section-title">
+            <span></span> Commands Overview
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>🛠️ Moderation &amp; Utility</h3>
+                <ul>
+                    <li><code>?kick</code> <code>?ban</code> <code>?unban</code></li>
+                    <li><code>?timeout</code> <code>?removetimeout</code></li>
+                    <li><code>?mute</code> <code>?unmute</code> <code>?purge</code></li>
+                    <li><code>?warn</code> <code>?warn list</code></li>
+                    <li><code>?nuke</code> <code>?role</code> <code>?slowmode</code></li>
+                    <li><code>?nick</code> <code>?lock</code> <code>?unlock</code></li>
+                    <li><code>?prefix set</code></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>💰 Economy &amp; Fun</h3>
+                <ul>
+                    <li><code>?bal</code> <code>?daily</code> <code>?give</code></li>
+                    <li><code>?cf</code> <code>?blackjack</code> <code>?slots</code></li>
+                    <li><code>?8ball</code> <code>?joke</code></li>
+                    <li><code>?cuddle</code> <code>?kiss</code> <code>?hug</code> <code>?kill</code></li>
+                    <li><code>?slap</code> <code>?poke</code> <code>?tickle</code> <code>?highfive</code></li>
+                    <li><code>?avatar</code> <code>?afk</code></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🔐 Security &amp; Dev Tools</h3>
+                <ul>
+                    <li><code>?passwordgen</code> <code>?passwordstrength</code></li>
+                    <li><code>?viruscheck</code> (attach file)</li>
+                    <li><code>?textencrypt</code> <code>?textdecrypt</code></li>
+                    <li><code>?encrypt</code> <code>?decryptfile</code></li>
+                    <li><code>?dns</code> <code>?whois</code> <code>?iplookup</code></li>
+                    <li><code>?netping</code> <code>?status</code> <code>?qr</code></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>⛏️ Minecraft &amp; Stats</h3>
+                <ul>
+                    <li><code>?minecraft &lt;username&gt;</code></li>
+                    <li><code>?mcstatus &lt;server&gt;</code></li>
+                    <li><code>?accountage</code> <code>?userinfo</code></li>
+                    <li><code>?botinfo</code> <code>?ping</code> <code>?uptime</code></li>
+                    <li><code>?servermood</code> <code>?sbanner</code></li>
+                    <li><code>?lb dailymessages</code> <code>?lb m</code></li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top:20px; text-align:center; color:#8899b0; font-size:0.95rem;">
+            All commands also available as <strong>slash commands</strong> (<code>/</code>) for modern Discord experience.
+        </div>
+    </div>
+</section>
 
-<footer>
-© 2026 Ultron™ • Moderation • Economy • Security • Minecraft • Developer Tools
+<!-- ========== PREMIUM ========== -->
+<section id="premium">
+    <div class="container">
+        <div class="section-title">
+            <span></span> 👑 Premium
+        </div>
+        <div class="grid-2">
+            <div class="card premium-highlight">
+                <h3>✨ What's included</h3>
+                <ul>
+                    <li><strong>?serverspeed</strong> – server latency info</li>
+                    <li><strong>?massunban</strong> – unban all users at once</li>
+                    <li><strong>?clearinvitelinks</strong> – delete all invites</li>
+                    <li><strong>?gif</strong> – convert image to GIF</li>
+                    <li><strong>/unban_all</strong> – slash version</li>
+                    <li><strong>Sticky messages</strong> – 15 per server (free: 3)</li>
+                    <li><strong>Auto‑reactions</strong> – 10 channels (free: 1)</li>
+                </ul>
+            </div>
+            <div class="card premium-highlight">
+                <h3>💎 How to buy?</h3>
+                <p style="margin-bottom:18px;">
+                    Get Premium to unlock the full power of Ultron™.
+                    Join our support server and open a ticket to purchase.
+                </p>
+                <a href="https://discord.gg/bW9kNuqdft" target="_blank" class="btn">
+                    🛒 Buy here
+                </a>
+                <p style="margin-top:18px; font-size:0.9rem; color:#8899b0;">
+                    Premium is a one‑time purchase – lifetime access.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== DEVELOPER ========== -->
+<section id="developer">
+    <div class="container">
+        <div class="section-title">
+            <span></span> About Developer
+        </div>
+        <div class="card dev-card">
+            <img
+                class="dev-avatar"
+                src="https://cdn.discordapp.com/avatars/1450801405572153446/da7bf9a99800e445d4f15fe1743afe4c.png?size=1024"
+                alt="Developer avatar"
+            />
+            <div class="dev-info">
+                <p><span class="label">Name</span> Mythic_killer</p>
+                <p><span class="label">Discord</span> mr.mythic_killer</p>
+                <p><span class="label">Contact</span>
+                    <a href="https://discord.gg/bW9kNuqdft" target="_blank">Support Server</a>
+                </p>
+                <div class="link-group">
+                    <a href="https://mythickiller-ai.github.io/Mr.Mythic_killer/" target="_blank" class="btn btn-outline" style="padding:8px 22px; font-size:0.9rem;">
+                        📁 Full Portfolio
+                    </a>
+                    <a href="https://discord.gg/bW9kNuqdft" target="_blank" class="btn btn-outline" style="padding:8px 22px; font-size:0.9rem;">
+                        💬 Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="container">
+        <div class="links">
+            <a href="https://mythickiller-ai.github.io/Ultron.bot.Privacy.Policy/" target="_blank">Privacy Policy</a>
+            <a href="https://mythickiller-ai.github.io/Ultron.terms.services.xyz/" target="_blank">Terms of Service</a>
+            <a href="https://discord.gg/bW9kNuqdft" target="_blank">Support</a>
+            <a href="https://mythickiller-ai.github.io/Mr.Mythic_killer/" target="_blank">Developer</a>
+        </div>
+        <div class="copy">
+            &copy; 2026 Ultron™ &middot; Moderation &bull; Economy &bull; Security &bull; Minecraft &bull; Developer Tools
+        </div>
+    </div>
 </footer>
 
 </body>
 </html>
-
-    
